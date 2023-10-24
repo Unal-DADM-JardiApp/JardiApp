@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Jardiapp</string>
+    <string name="not_log_in">El inicio de sesión falló</string>
+    <string name="log_out">Sesión cerrada</string>
+    <string name="revoke">Revocado</string>
+    <string name="not_close_session">No fue posible cerrar la sesión</string>
+    <string name="not_revoke">No fue posible revocar el acceso</string>
+    <string name="not_firebase_auth">No fue posible realizar la autenticación con Firebase</string>
+    <string name="default_web_client_id">743525087272-nqpv9j1fvvkl8adnvreo4k2h014qsqci.apps.googleusercontent.com</string>
+</resources>

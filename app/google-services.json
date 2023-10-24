@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "743525087272",
+    "project_id": "jardiapp-c3f1c",
+    "storage_bucket": "jardiapp-c3f1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743525087272:android:fd9db9a3eb29c7b7b61d1d",
+        "android_client_info": {
+          "package_name": "com.unal.jardiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743525087272-nqpv9j1fvvkl8adnvreo4k2h014qsqci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHtTSTrE9dhUKEMUSFepwmiBDhIz1_L5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743525087272-nqpv9j1fvvkl8adnvreo4k2h014qsqci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
