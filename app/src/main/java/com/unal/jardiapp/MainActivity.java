@@ -31,14 +31,15 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.unal.jardiapp.user.User;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private Button profileBttn;
     private ImageView photoImageView;
-    private TextView nameTextView;
-    private TextView emailTextView;
+    private String nameText;
+    private String emailText;
     //private TextView idTextView;
 
     private GoogleApiClient googleApiClient;
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             goProfileScreen();
             return true;
         } else if (itemId == R.id.new_plant) {
+            goNewPlantScreen();
             return true;
         } else if (itemId == R.id.my_plants) {
             return true;
@@ -114,14 +116,17 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         } else if (itemId == R.id.support) {
             return true;
         } else if (itemId == R.id.quit) {
+            logOut();
+            revoke();
+            goLogInScreen();
             return true;
         }
         return false;
     }
 
     private void setUserData(FirebaseUser user) {
-        //nameTextView.setText(user.getDisplayName());
-        //emailTextView.setText(user.getEmail());
+        nameText =user.getDisplayName().toString();
+        emailText = user.getEmail().toString();
         //idTextView.setText(user.getUid());
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
@@ -139,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
-    public void logOut(View view) {
+    public void logOut(/*View view*/) {
         firebaseAuth.signOut();
 
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
@@ -154,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         });
     }
 
-    public void revoke(View view) {
+    public void revoke(/*View view*/) {
         firebaseAuth.signOut();
 
         Auth.GoogleSignInApi.revokeAccess(googleApiClient).setResultCallback(new ResultCallback<Status>() {
@@ -186,12 +191,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void goProfileScreen() {
         Intent intent = new Intent(this, ProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("nombres", nameText);
+        intent.putExtra("email", emailText);
         startActivity(intent);
     }
 
     private void goNewPlantScreen() {
         Intent intent = new Intent(this, NewPlantActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("nombres", nameText);
+        intent.putExtra("email", emailText);
         startActivity(intent);
     }
 
@@ -209,6 +218,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-
+    public User getUserData(){
+        User user = new User();
+        user.setNames(nameText);
+        user.setEmail(emailText);
+        user.setImage(photoImageView);
+        return user;
+    }
 
 }

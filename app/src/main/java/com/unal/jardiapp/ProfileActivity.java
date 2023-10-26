@@ -6,12 +6,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
+import com.unal.jardiapp.user.User;
+
 public class ProfileActivity extends AppCompatActivity {
     private ImageView photoImageView;
+    private ImageView photoProfileImageView;
+    private TextView nameText;
+    private TextView emailText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +27,17 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         photoImageView = (ImageView) mToolbar.findViewById(R.id.profile_circlex);
+        photoProfileImageView = (ImageView) findViewById(R.id.profileImage);
+        nameText = (TextView) findViewById(R.id.nombreTxVw);
+        emailText = (TextView) findViewById(R.id.emailTextView);
+
+        //photoImageView = user.getImage();
+        //photoProfileImageView = user.getImage();
+        nameText.setText(getIntent().getExtras().getString("nombres"));
+        emailText.setText(getIntent().getExtras().getString("email"));
+
+        //Glide.with(this).load(user.getImage().into(photoImageView);
+
 
     }
 
@@ -40,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
             goMainScreen();
             return true;
         } else if (itemId == R.id.new_plant) {
+            goNewPlantScreen();
             return true;
         } else if (itemId == R.id.my_plants) {
             return true;
@@ -58,6 +77,16 @@ public class ProfileActivity extends AppCompatActivity {
     private void goMainScreen() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("nombres", nameText.getText().toString());
+        intent.putExtra("email", emailText.getText().toString());
+        startActivity(intent);
+    }
+
+    private void goNewPlantScreen() {
+        Intent intent = new Intent(this, NewPlantActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("nombres", nameText.getText().toString());
+        intent.putExtra("email", emailText.getText().toString());
         startActivity(intent);
     }
 }
