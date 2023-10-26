@@ -53,15 +53,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-
-
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        //mToolbar.setTitle("");
-        //mToolbar.setSubtitle("");
-        //getSupportActionBar().setCustomView(R.layout.custom_toolbar);
         photoImageView = (ImageView) mToolbar.findViewById(R.id.profile_circlex);
-        //TextView toolBarTitle = getSupportActionBar().getCustomView().findViewById(R.id.profile_circlex);
 
         //nameTextView = (TextView) findViewById(R.id.namesTextView);
         //emailTextView = (TextView) findViewById(R.id.emailTextView);
@@ -94,9 +87,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        MenuItem mainScreenItem = (MenuItem) menu.findItem(R.id.main_screen);
+        mainScreenItem.setVisible(false);
+        this.invalidateOptionsMenu();
         return true;
     }
 

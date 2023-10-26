@@ -9,7 +9,7 @@
         <menu>
             <item android:id="@+id/main_screen"
                 android:title="Principal"
-                android:icon="@drawable/user_icon" />
+                android:icon="@drawable/main_screen_icon" />
             <item android:id="@+id/profile"
                 android:title="Perfil"
                 android:icon="@drawable/user_icon" />
@@ -21,13 +21,13 @@
                 android:icon="@drawable/plant_icon" />
             <item android:id="@+id/products"
                 android:title="Productos"
-                android:icon="@drawable/city_icon" />
+                android:icon="@drawable/products_icon" />
             <item android:id="@+id/care_tips"
                 android:title="Tips de cuidado"
-                android:icon="@drawable/plant_icon" />
+                android:icon="@drawable/tips_icon" />
             <item android:id="@+id/support"
                 android:title="Soporte"
-                android:icon="@drawable/city_icon" />
+                android:icon="@drawable/support_icon" />
             <item android:id="@+id/quit"
                 android:title="Salir"
                 android:icon="@drawable/quit_icon" />
