@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/more"
+        android:title="Options"
+        android:icon="@drawable/menu_icon"
+        app:showAsAction="always">
+        <menu>
+            <item android:id="@+id/main_screen"
+                android:title="Principal"
+                android:icon="@drawable/user_icon" />
+            <item android:id="@+id/profile"
+                android:title="Perfil"
+                android:icon="@drawable/user_icon" />
+            <item android:id="@+id/new_plant"
+                android:title="Nueva planta"
+                android:icon="@drawable/new_icon" />
+            <item android:id="@+id/my_plants"
+                android:title="Mis plantas"
+                android:icon="@drawable/plant_icon" />
+            <item android:id="@+id/products"
+                android:title="Productos"
+                android:icon="@drawable/city_icon" />
+            <item android:id="@+id/care_tips"
+                android:title="Tips de cuidado"
+                android:icon="@drawable/plant_icon" />
+            <item android:id="@+id/support"
+                android:title="Soporte"
+                android:icon="@drawable/city_icon" />
+            <item android:id="@+id/quit"
+                android:title="Salir"
+                android:icon="@drawable/quit_icon" />
+        </menu>
+
+    </item>
+</menu>

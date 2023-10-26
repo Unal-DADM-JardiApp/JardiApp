@@ -4,14 +4,20 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
@@ -25,10 +31,11 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.unal.jardiapp.R;
+
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    private Button profileBttn;
     private ImageView photoImageView;
     private TextView nameTextView;
     private TextView emailTextView;
@@ -42,12 +49,25 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_main);
 
-        photoImageView = (ImageView) findViewById(R.id.profileImage);
-        nameTextView = (TextView) findViewById(R.id.namesTextView);
-        emailTextView = (TextView) findViewById(R.id.emailTextView);
-        //idTextView = (TextView) findViewById(R.id.idTextView);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        //getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //mToolbar.setTitle("");
+        //mToolbar.setSubtitle("");
+        //getSupportActionBar().setCustomView(R.layout.custom_toolbar);
+        photoImageView = (ImageView) mToolbar.findViewById(R.id.profile_circlex);
+        //TextView toolBarTitle = getSupportActionBar().getCustomView().findViewById(R.id.profile_circlex);
+
+        //nameTextView = (TextView) findViewById(R.id.namesTextView);
+        //emailTextView = (TextView) findViewById(R.id.emailTextView);
+
+        profileBttn = findViewById(R.id.profileButton);
+        profileBttn.setOnClickListener(new profileButtonClickListener());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -72,9 +92,39 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         };
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.profile) {
+            goProfileScreen();
+            return true;
+        } else if (itemId == R.id.new_plant) {
+            return true;
+        } else if (itemId == R.id.my_plants) {
+            return true;
+        } else if (itemId == R.id.products) {
+            return true;
+        } else if (itemId == R.id.care_tips) {
+            return true;
+        } else if (itemId == R.id.support) {
+            return true;
+        } else if (itemId == R.id.quit) {
+            return true;
+        }
+        return false;
+    }
+
     private void setUserData(FirebaseUser user) {
-        nameTextView.setText(user.getDisplayName());
-        emailTextView.setText(user.getEmail());
+        //nameTextView.setText(user.getDisplayName());
+        //emailTextView.setText(user.getEmail());
         //idTextView.setText(user.getUid());
         Glide.with(this).load(user.getPhotoUrl()).into(photoImageView);
     }
@@ -135,4 +185,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             firebaseAuth.removeAuthStateListener(firebaseAuthListener);
         }
     }
+
+    private void goProfileScreen() {
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private class profileButtonClickListener implements View.OnClickListener {
+        public profileButtonClickListener(){}
+        public void onClick(View view) {
+            goProfileScreen();
+        }
+    }
+
+
+
 }
