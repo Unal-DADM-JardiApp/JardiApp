@@ -29,6 +29,10 @@
             android:name=".ProfileActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".NewPlantActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

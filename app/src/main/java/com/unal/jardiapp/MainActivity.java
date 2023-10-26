@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         //emailTextView = (TextView) findViewById(R.id.emailTextView);
 
         profileBttn = findViewById(R.id.profileButton);
-        profileBttn.setOnClickListener(new profileButtonClickListener());
+        profileBttn.setOnClickListener(new ProfileButtonClickListener());
+        profileBttn = findViewById(R.id.createPlantButton);
+        profileBttn.setOnClickListener(new NewPlantButtonClickListener());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -187,10 +189,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
-    private class profileButtonClickListener implements View.OnClickListener {
-        public profileButtonClickListener(){}
+    private void goNewPlantScreen() {
+        Intent intent = new Intent(this, NewPlantActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private class ProfileButtonClickListener implements View.OnClickListener {
+        public ProfileButtonClickListener(){}
         public void onClick(View view) {
             goProfileScreen();
+        }
+    }
+
+    private class NewPlantButtonClickListener implements View.OnClickListener {
+        public NewPlantButtonClickListener(){}
+        public void onClick(View view) {
+            goNewPlantScreen();
         }
     }
 
