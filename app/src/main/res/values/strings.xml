@@ -8,4 +8,6 @@
     <string name="not_firebase_auth">No fue posible realizar la autenticación con Firebase</string>
     <string name="select">Seleccionar</string>
     <string name="default_web_client_id">743525087272-nqpv9j1fvvkl8adnvreo4k2h014qsqci.apps.googleusercontent.com</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_species">Especie</string>
 </resources>

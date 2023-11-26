@@ -37,9 +37,10 @@
                     android:layout_height="700dp">
 
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/plantImg"
                         android:layout_width="133dp"
                         android:layout_height="112dp"
+                        android:layout_marginBottom="175dp"
                         android:src="@drawable/add_img_icon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -48,15 +49,17 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.112" />
 
-                    <TextView
-                        android:id="@+id/addImgTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                    <Button
+                        android:id="@+id/addImgBttn"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="118dp"
+                        android:layout_height="39dp"
+                        android:layout_marginTop="5dp"
                         android:text="Añadir imagen"
+                        android:textSize="8sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+                        app:layout_constraintTop_toBottomOf="@+id/plantImg" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout2"
@@ -83,7 +86,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_margin="15dp"
+                                android:layout_margin="8dp"
                                 android:orientation="horizontal">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,18 +109,16 @@
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="1.0" />
 
-                                    <TextView
-                                        android:id="@+id/nombreTxVw"
+                                    <EditText
+                                        android:id="@+id/nombreEditTxt"
                                         android:layout_width="193dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
-                                        android:text="Planti"
+                                        android:hint="@string/hint_name"
+                                        android:textSize="14sp"
+                                        android:inputType="text"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.375"
-                                        app:layout_constraintStart_toEndOf="@+id/nombreTextView"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="0.533" />
+                                        app:layout_constraintTop_toTopOf="parent" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                             </LinearLayout>
@@ -125,7 +126,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_margin="15dp"
+                                android:layout_margin="8dp"
                                 android:orientation="horizontal">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -148,16 +149,15 @@
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="1.0" />
 
-                                    <TextView
-                                        android:id="@+id/especieTxVw"
+                                    <EditText
+                                        android:id="@+id/especieEditTxt"
                                         android:layout_width="193dp"
                                         android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
-                                        android:text="Midnicampum holicithias"
+                                        android:hint="@string/hint_species"
+                                        android:textSize="14sp"
+                                        android:inputType="text"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.375"
-                                        app:layout_constraintStart_toEndOf="@+id/especieTextView"
                                         app:layout_constraintTop_toTopOf="parent"
                                         app:layout_constraintVertical_bias="0.533" />
                                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -167,7 +167,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_margin="15dp"
+                                android:layout_margin="8dp"
                                 android:orientation="horizontal">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -176,40 +176,27 @@
                                     android:visibility="visible"
                                     tools:visibility="visible">
 
-                                    <!--<TextView
-                                        android:id="@+id/prioridadTxVw"
-                                        android:layout_width="193dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
-                                        android:text="Mis plantas"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.375"
-                                        app:layout_constraintStart_toEndOf="@+id/prioridadTextView"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="0.533" />-->
                                     <TextView
                                         android:id="@+id/prioridadTextView"
                                         android:layout_width="100dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginTop="32dp"
                                         android:layout_marginEnd="100dp"
                                         android:layout_weight="1"
                                         android:text="Prioridad:"
-                                        app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.115"
+                                        app:layout_constraintHorizontal_bias="0.116"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="0.51" />
+                                        app:layout_constraintTop_toTopOf="parent" />
 
                                     <com.google.android.material.textfield.TextInputLayout
+                                        android:id="@+id/textInputLayout3"
                                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                                        android:layout_width="156dp"
-                                        android:layout_height="40dp"
+                                        android:layout_width="163dp"
+                                        android:layout_height="57dp"
                                         android:layout_margin="16dp"
                                         android:layout_marginEnd="16dp"
                                         android:hint="@string/select"
-                                        app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toEndOf="@+id/prioridadTextView"
                                         app:layout_constraintTop_toTopOf="parent">
@@ -223,60 +210,36 @@
 
                                         </AutoCompleteTextView>
                                     </com.google.android.material.textfield.TextInputLayout>
-                                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="15dp"
-                                android:orientation="horizontal">
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:visibility="visible"
-                                    tools:visibility="visible">
-
-                                    <!--<TextView
-                                        android:id="@+id/recordatorioTxVw"
-                                        android:layout_width="193dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="10dp"
-                                        android:text="email@email.com"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.375"
-                                        app:layout_constraintStart_toEndOf="@+id/recordatorioTextView"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="0.533" />-->
 
                                     <TextView
                                         android:id="@+id/recordatorioTextView"
                                         android:layout_width="100dp"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginTop="55dp"
                                         android:layout_marginEnd="100dp"
+                                        android:layout_marginBottom="40dp"
                                         android:layout_weight="1"
                                         android:text="Recordatorio: "
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintHorizontal_bias="0.113"
+                                        app:layout_constraintHorizontal_bias="0.116"
                                         app:layout_constraintStart_toStartOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:layout_constraintVertical_bias="0.509" />
+                                        app:layout_constraintTop_toBottomOf="@+id/prioridadTextView"
+                                        app:layout_constraintVertical_bias="1.0" />
 
                                     <com.google.android.material.textfield.TextInputLayout
+                                        android:id="@+id/textInputLayout2"
                                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                                        android:layout_width="120dp"
-                                        android:layout_height="40dp"
+                                        android:layout_width="142dp"
+                                        android:layout_height="60dp"
                                         android:layout_margin="16dp"
-                                        android:layout_marginEnd="16dp"
+                                        android:layout_marginStart="44dp"
+                                        android:layout_marginEnd="79dp"
+                                        android:layout_marginBottom="16dp"
                                         android:hint="@string/select"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintStart_toEndOf="@+id/recordatorioTextView"
-                                        app:layout_constraintTop_toTopOf="parent">
+                                        app:layout_constraintStart_toEndOf="@+id/recordatorioTextView">
 
                                         <AutoCompleteTextView
                                             android:id="@+id/auto_complete_recordatorio"
@@ -294,7 +257,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_margin="15dp"
+                                android:layout_margin="8dp"
                                 android:orientation="horizontal">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
