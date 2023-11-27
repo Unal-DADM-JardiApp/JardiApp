@@ -9,6 +9,8 @@ public class Plant {
     private String reminder;
     private String sensor;
     private String imgScr;
+    private String brightness;
+    private String humidity;
 
     public int getId() {
         return id;
@@ -64,5 +66,21 @@ public class Plant {
 
     public void setImgScr(String imgScr) {
         this.imgScr = imgScr;
+    }
+
+    public String getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(String brightness) {
+        this.brightness = brightness;
+    }
+
+    public String getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        this.humidity = humidity;
     }
 }

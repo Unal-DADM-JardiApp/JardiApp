@@ -33,6 +33,14 @@
             android:name=".NewPlantActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".PlantListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".ViewPlantActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

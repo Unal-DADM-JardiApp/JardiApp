@@ -37,7 +37,7 @@ import com.unal.jardiapp.user.User;
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private FirebaseUser fireBaseUser;
-    private Button profileBttn;
+    private Button profileBttn, plantsBttn, newPlantBttn;
     private ImageView photoImageView;
     private String nameText;
     private String emailText;
@@ -63,8 +63,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         profileBttn = findViewById(R.id.profileButton);
         profileBttn.setOnClickListener(new ProfileButtonClickListener());
-        profileBttn = findViewById(R.id.createPlantButton);
-        profileBttn.setOnClickListener(new NewPlantButtonClickListener());
+
+        newPlantBttn = findViewById(R.id.createPlantButton);
+        newPlantBttn.setOnClickListener(new NewPlantButtonClickListener());
+
+        plantsBttn = findViewById(R.id.plantsButton);
+        plantsBttn.setOnClickListener(new PlantsButtonClickListener());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -110,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             goNewPlantScreen();
             return true;
         } else if (itemId == R.id.my_plants) {
+            goPlantsScreen();
             return true;
         } else if (itemId == R.id.products) {
             return true;
@@ -199,6 +204,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
+    private void goPlantsScreen() {
+        Intent intent = new Intent(this, PlantListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("nombres", nameText);
+        intent.putExtra("email", emailText);
+        intent.setData(fireBaseUser.getPhotoUrl());
+        startActivity(intent);
+    }
+
     private void goNewPlantScreen() {
         Intent intent = new Intent(this, NewPlantActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -219,6 +233,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         public NewPlantButtonClickListener(){}
         public void onClick(View view) {
             goNewPlantScreen();
+        }
+    }
+
+    private class PlantsButtonClickListener implements View.OnClickListener {
+        public PlantsButtonClickListener(){}
+        public void onClick(View view) {
+            goPlantsScreen();
         }
     }
 
