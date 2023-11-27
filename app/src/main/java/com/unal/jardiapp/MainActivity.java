@@ -36,6 +36,7 @@ import com.unal.jardiapp.user.User;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
+    private FirebaseUser fireBaseUser;
     private Button profileBttn;
     private ImageView photoImageView;
     private String nameText;
@@ -80,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    setUserData(user);
+                    fireBaseUser = user;
+                    setUserData(fireBaseUser);
                 } else {
                     goLogInScreen();
                 }
@@ -193,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("nombres", nameText);
         intent.putExtra("email", emailText);
+        intent.setData(fireBaseUser.getPhotoUrl());
         startActivity(intent);
     }
 
@@ -201,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("nombres", nameText);
         intent.putExtra("email", emailText);
+        intent.setData(fireBaseUser.getPhotoUrl());
         startActivity(intent);
     }
 

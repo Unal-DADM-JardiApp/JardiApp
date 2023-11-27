@@ -1,8 +1,8 @@
 package com.unal.jardiapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,15 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.unal.jardiapp.model.Plant;
 
@@ -28,7 +27,7 @@ public class NewPlantActivity extends AppCompatActivity {
 
     EditText plantNameTxt, speciesTxt;
     Button addPlantButtn, addImageBttn;
-    ImageView image;
+    ImageView plantImage, profileImage;
     private final int GALLERY_REQ_CODE = 1;
     private AutoCompleteTextView autoCompleteTextViewRecordatorio, autoCompleteTextViewPrioridad;
     private ArrayAdapter<String> adarpterRecordatorio, adarpterPrioridad;
@@ -48,12 +47,14 @@ public class NewPlantActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nameText = getIntent().getExtras().getString("nombres");
         emailText = getIntent().getExtras().getString("email");
-        //photoImageView = (ImageView) mToolbar.findViewById(R.id.profile_circlex);
+        profileImage = (ImageView) mToolbar.findViewById(R.id.profile_circlex);
+        Glide.with(this).load(intent.getData()).into(profileImage);
+
 
         plantNameTxt = findViewById(R.id.nombreEditTxt);
         speciesTxt = findViewById(R.id.especieEditTxt);
         addPlantButtn = findViewById(R.id.createPlantButton);
-        image = findViewById(R.id.plantImg);
+        plantImage = findViewById(R.id.plantImg);
         addImageBttn = findViewById(R.id.addImgBttn);
 
         autoCompleteTextViewRecordatorio = findViewById(R.id.auto_complete_recordatorio);
@@ -106,7 +107,7 @@ public class NewPlantActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK){
             //if (requestCode == GALLERY_REQ_CODE){
-            image.setImageURI(data.getData());
+            plantImage.setImageURI(data.getData());
             //}
         }
     }

@@ -31,8 +31,8 @@ public class ProfileActivity extends AppCompatActivity {
         nameText = (TextView) findViewById(R.id.nombreTxVw);
         emailText = (TextView) findViewById(R.id.emailTextView);
 
-        //photoImageView = user.getImage();
-        //photoProfileImageView = user.getImage();
+        Glide.with(this).load(getIntent().getData()).into(photoImageView);
+        Glide.with(this).load(getIntent().getData()).into(photoProfileImageView);
         nameText.setText(getIntent().getExtras().getString("nombres"));
         emailText.setText(getIntent().getExtras().getString("email"));
 
