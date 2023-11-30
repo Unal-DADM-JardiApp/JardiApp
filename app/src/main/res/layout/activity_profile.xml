@@ -260,7 +260,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="145dp"
                                         android:layout_marginTop="20dp"
-                                        android:layout_marginEnd="145dp"
+                                        android:layout_marginEnd="180dp"
                                         android:text="Editar"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintStart_toStartOf="parent"
@@ -274,17 +274,6 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/principalTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_weight="1"
-                        android:text="Principal"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

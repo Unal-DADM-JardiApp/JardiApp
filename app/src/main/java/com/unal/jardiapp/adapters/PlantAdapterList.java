@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlantAdapterList extends RecyclerView.Adapter<PlantAdapterList.CompanyViewHolder> {
+public class PlantAdapterList extends RecyclerView.Adapter<PlantAdapterList.PlantViewHolder> {
 
     ArrayList<Plant> plantList;
     ArrayList<Plant> originalPlantList;
@@ -31,13 +31,13 @@ public class PlantAdapterList extends RecyclerView.Adapter<PlantAdapterList.Comp
 
     @NonNull
     @Override
-    public CompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plant_list_design, null, false);
-        return new CompanyViewHolder(view);
+        return new PlantViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlantAdapterList.CompanyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlantViewHolder holder, int position) {
         holder.nameText.setText(plantList.get(position).getName());
         holder.speciesText.setText(plantList.get(position).getSpecies());
     }
@@ -47,10 +47,10 @@ public class PlantAdapterList extends RecyclerView.Adapter<PlantAdapterList.Comp
         return plantList.size();
     }
 
-    public class CompanyViewHolder extends RecyclerView.ViewHolder {
+    public class PlantViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameText, speciesText;
-        public CompanyViewHolder(@NonNull View itemView) {
+        public PlantViewHolder(@NonNull View itemView) {
             super(itemView);
             nameText = itemView.findViewById(R.id.nameText);
             speciesText = itemView.findViewById(R.id.speciesText);

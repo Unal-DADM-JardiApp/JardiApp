@@ -42,4 +42,15 @@ public class PlantDAO {
         plants.add(plant2);
         return plants;
     }
+
+    public Plant showPlant(int id){
+        Plant plant = new Plant();
+        plant.setId(1);
+        plant.setName("Planti");
+        plant.setSpecies("Ceropegia woodii");
+        plant.setHumidity("40%");
+        plant.setBrightness("150 lm");
+
+        return plant;
+    }
 }
