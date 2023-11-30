@@ -1,11 +1,10 @@
 package com.unal.jardiapp;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,31 +15,27 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.unal.jardiapp.dao.PlantDAO;
 import com.unal.jardiapp.model.Plant;
 
-public class NewPlantActivity extends AppCompatActivity {
+public class EditPlantActivity extends AppCompatActivity {
 
+    static final int DIALOG_UPDATE_ID = 0;
+    static final int DIALOG_DELETE_ID = 1;
     EditText plantNameTxt, speciesTxt;
-    Button addPlantButtn, addImageBttn, editPlantButton;
+    Button addPlantButtn, addImageBttn, editplantBttn;
     ImageView plantImage, profileImage;
     ImageButton deleteButton;
-    private final int GALLERY_REQ_CODE = 1;
+    String plantID;
     private AutoCompleteTextView autoCompleteTextViewRecordatorio, autoCompleteTextViewPrioridad;
     private ArrayAdapter<String> adarpterRecordatorio, adarpterPrioridad;
 
     private String[] item_recordatorio = {"Cada día", "Cada 3 días", "Cada 5 días", "Cada semana"};
     private String[] item_prioridad = {"Baja", "Media", "Alta"};
-
-    private String nameText;
-    private String emailText;
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acivity_new_plant);
@@ -48,22 +43,19 @@ public class NewPlantActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         Intent intent = getIntent();
-        nameText = getIntent().getExtras().getString("nombres");
-        emailText = getIntent().getExtras().getString("email");
-        profileImage = (ImageView) mToolbar.findViewById(R.id.profile_circlex);
-        Glide.with(this).load(intent.getData()).into(profileImage);
-
 
         plantNameTxt = findViewById(R.id.nombreEditTxt);
         speciesTxt = findViewById(R.id.especieEditTxt);
         addPlantButtn = findViewById(R.id.createPlantButton);
         plantImage = findViewById(R.id.plantImg);
         addImageBttn = findViewById(R.id.addImgBttn);
-        editPlantButton = findViewById(R.id.editPlantButton);
+        addPlantButtn.setVisibility(View.INVISIBLE);
+        editplantBttn = findViewById(R.id.editPlantButton);
         deleteButton = findViewById(R.id.deleteButton);
 
-        editPlantButton.setVisibility(View.INVISIBLE);
-        deleteButton.setVisibility(View.INVISIBLE);
+        plantNameTxt.setText(getIntent().getExtras().getString("name"));
+        speciesTxt.setText(getIntent().getExtras().getString("species"));
+        plantID = getIntent().getExtras().getString("ID");
 
         autoCompleteTextViewRecordatorio = findViewById(R.id.auto_complete_recordatorio);
         adarpterRecordatorio = new ArrayAdapter<>(this, R.layout.list_item, item_recordatorio);
@@ -90,7 +82,7 @@ public class NewPlantActivity extends AppCompatActivity {
         addImageBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImagePicker.with(NewPlantActivity.this)
+                ImagePicker.with(EditPlantActivity.this)
                         .crop()	    			//Crop image(Optional), Check Customization for more option
                         .compress(1024)			//Final image size will be less than 1 MB(Optional)
                         .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
@@ -98,112 +90,85 @@ public class NewPlantActivity extends AppCompatActivity {
             }
         });
 
-        addPlantButtn.setOnClickListener(new View.OnClickListener() {
+        editplantBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (plantNameTxt.getText().toString().equals("") || speciesTxt.getText().toString().equals("") || autoCompleteTextViewPrioridad.getText().toString().equals("") || autoCompleteTextViewRecordatorio.getText().toString().equals(""))
-                    Toast.makeText(NewPlantActivity.this, "Debe llenar todos los cambios antes de guardar la planta", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditPlantActivity.this, "Debe llenar todos los cambios antes de guardar la planta", Toast.LENGTH_LONG).show();
                 else{
                     if (savePlant()){
-                        Toast.makeText(NewPlantActivity.this, "Planta creada y almacenada", Toast.LENGTH_LONG).show();
-                        cleanForm();
+                        Toast.makeText(EditPlantActivity.this, "Planta actualizada", Toast.LENGTH_LONG).show();
+                        goPlantViewScreen();
                     }
                     else
-                        Toast.makeText(NewPlantActivity.this, "Se presentó un error, no se pudo crear el registro de la planta", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditPlantActivity.this, "Se presentó un error, no se pudo actualizar el registro de la planta", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
     }
 
-    private void cleanForm(){
-        plantNameTxt.setText("");
-        speciesTxt.setText("");
-        autoCompleteTextViewRecordatorio = findViewById(R.id.auto_complete_recordatorio);
-        adarpterRecordatorio = new ArrayAdapter<>(this, R.layout.list_item, item_recordatorio);
-        autoCompleteTextViewRecordatorio.setAdapter(adarpterRecordatorio);
-
-        autoCompleteTextViewPrioridad = findViewById(R.id.auto_complete_prioridad);
-        adarpterPrioridad = new ArrayAdapter<>(this, R.layout.list_item, item_prioridad);
-        autoCompleteTextViewPrioridad.setAdapter(adarpterPrioridad);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            //if (requestCode == GALLERY_REQ_CODE){
-            plantImage.setImageURI(data.getData());
-            //}
+    public void onClick(View view) {
+        int id = view.getId();
+        if (R.id.deleteButton == id){
+            showDialog(DIALOG_DELETE_ID);
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        MenuItem newPlantScreenItem = (MenuItem) menu.findItem(R.id.new_plant);
-        newPlantScreenItem.setVisible(false);
-        this.invalidateOptionsMenu();
-        return true;
+    private void goPlantViewScreen() {
+        Intent intent = new Intent(this, ViewPlantActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("ID", plantID);
+        startActivity(intent);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.profile) {
-            goProfileScreen();
-            return true;
-        } else if (itemId == R.id.main_screen) {
-            goMainScreen();
-            return true;
-        } else if (itemId == R.id.my_plants) {
-            return true;
-        } else if (itemId == R.id.products) {
-            return true;
-        } else if (itemId == R.id.care_tips) {
-            return true;
-        } else if (itemId == R.id.support) {
-            return true;
-        } else if (itemId == R.id.quit) {
-            return true;
-        }
-        return false;
-    }
-
-    private void goMainScreen() {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void goPlantListScreen() {
+        Intent intent = new Intent(this, PlantListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    private void goProfileScreen() {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("nombres", nameText);
-        intent.putExtra("email", emailText);
-        startActivity(intent);
-    }
-
-    /**
-     * Method for save plant in Database
-     * @return true if an autocremental id was created and the registry was saved,
-     * otherwise, return false.
-     */
     private boolean savePlant(){
         PlantDAO dao = new PlantDAO(this);
         Plant plant = new Plant();
+        plant.setId(plantID);
         plant.setName(plantNameTxt.getText().toString());
         plant.setSpecies(speciesTxt.getText().toString());
         plant.setPriority(autoCompleteTextViewPrioridad.getText().toString());
         plant.setReminder(autoCompleteTextViewRecordatorio.getText().toString());
         plant.setSensor(""); // TODO: expecting to manage the sensor information
         // TODO: call the DAO for insert and retrieve the autoincrementable id
-        dao.insert(plant);
+        dao.update(plant);
         return true; // FIXME: if id != null then true, else false.
 
     }
-    
 
+    private void deletePlant(){
+        PlantDAO dao = new PlantDAO(this);
+        Plant plant = new Plant();
+        plant.setId(plantID);
+        // TODO: call the DAO for insert and retrieve the autoincrementable id
+        dao.delete(plant);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog = null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        switch(id) {
+            case DIALOG_DELETE_ID:
+                builder.setMessage(R.string.delete_question)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                deletePlant();
+                                goPlantListScreen();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, null);
+        }
+        dialog = builder.create();
+        return dialog;
+    }
 
 }

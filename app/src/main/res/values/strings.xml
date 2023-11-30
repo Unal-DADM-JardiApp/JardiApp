@@ -10,4 +10,8 @@
     <string name="default_web_client_id">743525087272-nqpv9j1fvvkl8adnvreo4k2h014qsqci.apps.googleusercontent.com</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_species">Especie</string>
+    <string name="update_question">Desea actualizar el registro de la planta?</string>
+    <string name="delete_question">Desea eliminar el registro de la planta?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 </resources>

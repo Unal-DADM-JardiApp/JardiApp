@@ -41,6 +41,10 @@
             android:name=".ViewPlantActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name=".EditPlantActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
